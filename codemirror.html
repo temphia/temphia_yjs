@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <title>Yjs CodeMirror Example</title>
-    <script type="text/javascript" src="./dist/codemirror.bundle.js" async></script>
-    <link rel=stylesheet href="./codemirror.css"  async defer>
+    <script
+      type="text/javascript"
+      src="./dist/codemirror.bundle.js"
+      async
+    ></script>
+    <link rel="stylesheet" href="./codemirror.css" async defer />
     <style>
       .remote-caret {
         position: relative;
@@ -17,7 +21,7 @@
         position: absolute;
         top: -1.05em;
         left: -2px;
-        font-size: .6em;
+        font-size: 0.6em;
         background-color: rgb(250, 129, 0);
         font-family: serif;
         font-style: normal;
@@ -28,29 +32,31 @@
         padding-left: 2px;
         padding-right: 2px;
         z-index: 3;
-        transition: opacity .3s ease-in-out;
+        transition: opacity 0.3s ease-in-out;
       }
       .remote-caret.hide-name > div {
-        transition-delay: .7s;
+        transition-delay: 0.7s;
         opacity: 0;
       }
       .remote-caret:hover > div {
         opacity: 1;
         transition-delay: 0s;
       }
-      </style>
+    </style>
   </head>
   <body>
-    <button type="button" id="y-connect-btn">Disconnect</button>
-    <p></p>
-    <p>
-      This is a demo2 of the <a href="https://github.com/yjs/yjs">Yjs</a> ⇔
-      <a href="https://codemirror.net">CodeMirror</a> binding:
-      <a href="https://github.com/yjs/y-codemirror">y-codemirror</a>.
-    </p>
-    <p>
-      The content of this editor is shared with every client that visits this
-      domain.
-    </p>
+    <div>
+      <div class="first">
+        <p>
+          First texteditor
+        </p>
+      </div>
+
+      <div class="second">
+        <p>
+          Second texteditor
+        </p>
+      </div>
+    </div>
   </body>
 </html>

@@ -18,16 +18,18 @@ export class EasyProvider extends Observable {
   // doc: Y.Doc;
   // awareness: awarenessProtocol.Awareness;
 
-  constructor(doc) {
+  constructor(name, doc) {
     super();
     this.doc = doc;
+    this.name = name
+
     doc.on('update', this.handlerUpdate)
     this.awareness = new awarenessProtocol.Awareness(doc);
 
   }
 
   handlerUpdate = (update, origin) => {
-    console.log("DOCUMENT_UPDATED", {update, origin});
+    console.log("DOCUMENT_UPDATED ", this.name, {update, origin});
     
   };
 }

@@ -9,20 +9,28 @@ import 'codemirror/mode/javascript/javascript.js'
 import { EasyProvider } from './easy_provider'
 
 window.addEventListener('load', () => {
-  const ydoc = new Y.Doc()
-  const provider = new EasyProvider(ydoc)
-  const ytext = ydoc.getText('codemirror')
-  const editorContainer = document.createElement('div')
-  editorContainer.setAttribute('id', 'editor')
-  document.body.insertBefore(editorContainer, null)
 
-  const editor = CodeMirror(editorContainer, {
+  const ydoc1 = new Y.Doc()
+  const provider1 = new EasyProvider("first", ydoc1)
+
+  const ydoc2 = new Y.Doc()
+  const provider2 = new EasyProvider("second", ydoc2)
+
+  const first = document.querySelector(".first");
+  const second = document.querySelector(".second");
+
+  const bind1 = addEditor(ydoc1, provider1, first)
+  const bind2 = addEditor(ydoc2, provider2, second)
+
+  window.tsar = { bind1, bind2, provider1, provider2 }
+})
+
+
+function addEditor(doc, provider, target) {
+  const editor = CodeMirror(target, {
     mode: 'javascript',
     lineNumbers: true
   })
 
-  const binding = new CodemirrorBinding(ytext, editor, provider.awareness)
-
-  // @ts-ignore
-  window.example = { provider, ydoc, ytext, binding, Y }
-})
+  return new CodemirrorBinding(doc.getText('codemirror'), editor, provider.awareness)
+}
