@@ -1,0 +1,20 @@
+{
+  "name": "temphia_yjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "yjs",
+    "temphia",
+    "collabrative"
+  ],
+  "author": "bornjre",
+  "license": "ISC",
+  "dependencies": {
+    "tsc": "^2.0.4"
+  }
+}
