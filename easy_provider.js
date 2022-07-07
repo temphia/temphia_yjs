@@ -37,6 +37,18 @@ export class EasyProvider extends Observable {
 
   start = () => {
     this.sendState()
+
+    if (this.awareness.getLocalState() !== null) {
+      const encoderAwarenessState = encoding.createEncoder();
+      encoding.writeVarUint(encoderAwarenessState, messageAwareness);
+      encoding.writeVarUint8Array(encoderAwarenessState, awarenessProtocol.encodeAwarenessUpdate(this.awareness, [this.doc.clientID]));
+      this.out_handle(encoding.toUint8Array(encoderAwarenessState))
+    }
+    
+    this.emit('status', [{
+      status: 'connected'
+    }])
+
     setInterval(this.sendState, 50000)
   }
 
@@ -66,10 +78,13 @@ export class EasyProvider extends Observable {
         }
         break;
       case messageQueryAwareness:
-        console.log("TODO query awerness")
+        console.log("@awerness_query")
+        encoding.writeVarUint(encoder, messageAwareness);
+        encoding.writeVarUint8Array(encoder, awarenessProtocol.encodeAwarenessUpdate(this.awareness, Array.from(this.awareness.getStates().keys())));
         break;
       case messageAwareness:
-        console.log("TODO awerness")
+        console.log("@awerness")
+        awarenessProtocol.applyAwarenessUpdate(this.awareness, decoding.readVarUint8Array(decoder), this);
         break;
       default:
         break;
