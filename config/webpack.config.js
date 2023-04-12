@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     entry: {
-        easy_provider: './src/easy_provider.js'
+        easy_provider: './src/index.js'
     },
     output: {
         path: path.resolve('./dist'),
