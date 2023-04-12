@@ -5,8 +5,8 @@ import CodeMirror from 'codemirror'
 import * as Y from 'yjs'
 import { CodemirrorBinding } from 'y-codemirror'
 import 'codemirror/mode/javascript/javascript.js'
-import { EasyProvider } from './easy_provider'
-import { FakePipe } from './fakepipe'
+import { EasyProvider } from '../easy_provider'
+import { FakePipe } from '../fakepipe'
 
 window.addEventListener('load', () => {
   const pipe = new FakePipe()

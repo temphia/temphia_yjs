@@ -4,17 +4,16 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    codemirror: './codemirror.js'
+    codemirror: './src/example/codemirror.js'
   },
   output: {
     globalObject: 'self',
-    path: path.resolve(__dirname, './dist/'),
+    path: path.resolve('./public/build/'),
     filename: '[name].bundle.js',
-    publicPath: '/codemirror/dist/'
   },
   devServer: {
-    contentBase: path.join(__dirname),
+    contentBase: path.join("./public/"),
     compress: true,
-    publicPath: '/dist/'
+    publicPath: './build/'
   }
 }

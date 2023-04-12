@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Yjs ❤ Atlaskit",
   "scripts": {
-    "dist": "webpack --mode=production",
-    "start": "webpack serve --open --open-page codemirror.html"
+    "example_dev_start": "webpack serve --open --open-page codemirror.html -c config/webpack.config.example.js",
+    "example_build": "webpack --mode=production -c config/webpack.config.example.js"
   },
   "author": "Kevin Jahns <kevin.jahns@pm.me>",
   "license": "UNLICENSE",
