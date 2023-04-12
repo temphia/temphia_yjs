@@ -1,13 +1,14 @@
 {
-  "name": "yjs-codemirror-demo",
+  "name": "temphia_yjs",
   "version": "1.0.0",
-  "description": "Yjs ❤ Atlaskit",
+  "description": "Temphia YJS",
+  "main": "./dist/easy_provider.js",
   "scripts": {
     "example_dev_start": "webpack serve --open --open-page codemirror.html -c config/webpack.config.example.js",
-    "example_build": "webpack --mode=production -c config/webpack.config.example.js"
+    "example_build": "webpack --mode=production -c config/webpack.config.example.js",
+    "build_dist": "webpack --mode=production -c config/webpack.config.js"
   },
-  "author": "Kevin Jahns <kevin.jahns@pm.me>",
-  "license": "UNLICENSE",
+  "license": "MIT",
   "dependencies": {
     "codemirror": "^5.64.0",
     "lib0": "^0.2.51",
