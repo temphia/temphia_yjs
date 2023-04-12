@@ -3,5 +3,5 @@ This is a provider for [yjs](https://yjs.dev) to work inside [temphia](https://g
 
 ## TODO
 - [x] implement awareness
-- [ ] remove codemirror test file.
-- [ ] remove not used dependencies and package
+- [x] refactor codemirror example
+- [x] export as package
