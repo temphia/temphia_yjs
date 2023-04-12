@@ -4,8 +4,6 @@ import { Observable } from "lib0/observable.js";
 import * as Y from "yjs"; // eslint-disable-line
 import * as syncProtocol from "y-protocols/sync.js";
 import * as awarenessProtocol from "y-protocols/awareness.js";
-import { Buffer } from "buffer";
-
 
 const messageSync = 0;
 const messageQueryAwareness = 3;
@@ -33,6 +31,10 @@ export class EasyProvider extends Observable {
 
     doc.on('update', this.handlerUpdate)
     this.awareness = new awarenessProtocol.Awareness(doc);
+
+    this.emit('status', [{
+      status: 'connecting'
+    }])
   }
 
   start = () => {
@@ -44,10 +46,29 @@ export class EasyProvider extends Observable {
       encoding.writeVarUint8Array(encoderAwarenessState, awarenessProtocol.encodeAwarenessUpdate(this.awareness, [this.doc.clientID]));
       this.out_handle(encoding.toUint8Array(encoderAwarenessState))
     }
-    
+
     this.emit('status', [{
       status: 'connected'
     }])
+
+
+    const encoderSync = encoding.createEncoder()
+    encoding.writeVarUint(encoderSync, messageSync)
+    syncProtocol.writeSyncStep1(encoderSync, this.doc)
+
+    this.out_handle(encoding.toUint8Array(encoderSync))
+
+    const encoderState = encoding.createEncoder()
+    encoding.writeVarUint(encoderState, messageSync)
+    syncProtocol.writeSyncStep2(encoderState, this.doc)
+
+
+    this.out_handle(encoding.toUint8Array(encoderState))
+
+    const encoderAwarenessQuery = encoding.createEncoder()
+    encoding.writeVarUint(encoderAwarenessQuery, messageQueryAwareness)
+
+    this.out_handle(encoding.toUint8Array(encoderAwarenessQuery))
 
     setInterval(this.sendState, 50000)
   }
@@ -75,6 +96,8 @@ export class EasyProvider extends Observable {
         const syncMessageType = syncProtocol.readSyncMessage(decoder, encoder, this.doc, this)
         if (syncMessageType === syncProtocol.messageYjsSyncStep2 && !this.synced) {
           this.synced = true
+        } else {
+          console.log("@skipping msgsync", syncMessageType)
         }
         break;
       case messageQueryAwareness:
@@ -87,6 +110,7 @@ export class EasyProvider extends Observable {
         awarenessProtocol.applyAwarenessUpdate(this.awareness, decoding.readVarUint8Array(decoder), this);
         break;
       default:
+        console.log("@skipping_msgtype", messageType)
         break;
     }
 
@@ -106,21 +130,3 @@ export class EasyProvider extends Observable {
     }
   };
 }
-
-
-
-/**
- * @param {Uint8Array} data
- */
-export const b648FromUint8 = (data) => {
-  const buf = Buffer.from(data.sync_data, "base64")
-  return buf.toString()
-}
-
-/**
- * @param {string} data
- */
-export const uint8FromB64 = (data) => {
-  Buffer.from(data, "base64")
-}
-
